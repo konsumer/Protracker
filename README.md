@@ -46,7 +46,7 @@ You can also check `mod.playing`to see is it's playing.
 
 #### events
 
-These eventsget triggered:
+These events get triggered:
 
 - `load`  - fired when `load()` is called with `path` param.
 - `play`  - fired when `play()` is called
