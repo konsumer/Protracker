@@ -2,6 +2,8 @@
 
 Simple JS modplayer, using [standingwavejs](https://www.npmjs.com/package/standingwavejs)
 
+You can see a demo [here](http://konsumer.github.io/simplemodplay/).
+
 _NOT COMPLETE_: I am working on it, right now!
 
 ## usage
