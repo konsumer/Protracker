@@ -25,9 +25,6 @@
   },
   "devDependencies": {
     "browserify": "",
-    "chai": "",
-    "istanbul": "",
-    "mocha": "",
     "node-static": "^0.7.6",
     "trash": "konsumer/trash",
     "uglifyjs": "",
@@ -39,9 +36,7 @@
     "watch": "watch 'npm run dev' --wait=10",
     "clean": "trash --force Protracker.js Protracker.min.js",
     "dev": "npm run clean && browserify index.js --debug -o Protracker.js --standalone Protracker",
-    "prod": "npm run dev && uglifyjs Protracker.js -o Protracker.min.js",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks",
-    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks"
+    "prod": "npm run dev && uglifyjs Protracker.js -o Protracker.min.js"
   },
   "browserify": {
     "transform": [
