@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "browserify": "",
-    "konsumer/trash": "",
+    "trash": "konsumer/trash",
     "uglifyjs": ""
   },
   "scripts": {
