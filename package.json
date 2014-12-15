@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/konsumer/simplemodplay",
   "dependencies": {
-    "standingwavejs": "0.0.0"
+    "standingwavejs": ""
   },
   "devDependencies": {
     "browserify": "",
