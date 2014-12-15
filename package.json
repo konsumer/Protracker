@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "browserify": "",
-    "node-static": "^0.7.6",
+    "node-static": "",
     "trash": "konsumer/trash",
     "uglifyjs": "",
     "watch": ""
