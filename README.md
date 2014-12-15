@@ -48,10 +48,10 @@ You can also check `mod.playing`to see is it's playing.
 
 These events get triggered:
 
-- `load`  - fired when `load()` is called with `path` param.
-- `play`  - fired when `play()` is called
-- `pause` - fired when `pause()` is called
-- `stop`  - fired when `stop()` is called or the file finishes
+- `load`  - `load()` is called with `path` param.
+- `play`  - `play()` is called
+- `pause` - `pause()` is called
+- `stop`  - `stop()` is called or the file finishes playing
 
 You can listen for them like this: `mod.on('play', function(){ doStuff(); });`
 
