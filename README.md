@@ -32,6 +32,8 @@ define(['simplemodplay'],  function(SimpleModPlayer){
 });
 ```
 
+### api
+
 After that, you can run `mod.load('cool.mod')` and then `mod.play()`, `mod.pause()` & `mod.stop()`.
 
 You can also load your mod file in the constructor, and optionally set the path for [standingwavejs](https://www.npmjs.com/package/standingwavejs) SWF file:
@@ -39,6 +41,19 @@ You can also load your mod file in the constructor, and optionally set the path 
 ```javascript
 var mod = new SimpleModPlayer('cool.mod', '/flash/standingwavejs.swf');
 ```
+
+You can also check `mod.playing`to see is it's playing.
+
+#### events
+
+These eventsget triggered:
+
+- `load`  - fired when `load()` is called with `path` param.
+- `play`  - fired when `play()` is called
+- `pause` - fired when `pause()` is called
+- `stop`  - fired when `stop()` is called or the file finishes
+
+You can listen for them like this: `mod.on('play', function(){ doStuff(); });`
 
 
 ## development
