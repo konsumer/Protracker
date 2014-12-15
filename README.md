@@ -58,4 +58,6 @@ You can listen for them like this: `mod.on('play', function(){ doStuff(); });`
 
 ## development
 
-You can re-generate simplemodplay.js & simplemodplay.min.js with `npm run prod`. You should do that if you make any changes to index.js.
+Install developer dependencies with `npm install`.
+
+The source file is index.js. Edit that and then re-generate simplemodplay.js & simplemodplay.min.js with `npm run prod`. You should do that if you make any changes to index.js.
