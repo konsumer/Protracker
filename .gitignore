@@ -1,0 +1,5 @@
+node_modules
+npm-debug.log
+simplemodplay.js
+simplemodplay.min.js
+.DS_Store

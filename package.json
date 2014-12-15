@@ -1,0 +1,37 @@
+{
+  "name": "simplemodplay",
+  "version": "0.0.1",
+  "description": "Simple JS modplayer, using standingwavejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konsumer/simplemodplay.git"
+  },
+  "keywords": [
+    "mod",
+    "music",
+    "browser"
+  ],
+  "author": "DavidKonsumer <konsumer@jetboystudio.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/konsumer/simplemodplay/issues"
+  },
+  "homepage": "https://github.com/konsumer/simplemodplay",
+  "dependencies": {
+    "standingwavejs": "0.0.0"
+  },
+  "devDependencies": {
+    "browserify": "",
+    "trash": "",
+    "uglifyjs": ""
+  },
+  "scripts": {
+    "clean": "trash --force simplemodplay.js simplemodplay.min.js",
+    "dev": "npm run clean && browserify index.js -o simplemodplay.js --standalone SimpleModPlayer",
+    "prod": "npm run dev && uglifyjs simplemodplay.js -o simplemodplay.min.js"
+  }
+}
