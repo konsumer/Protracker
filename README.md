@@ -1,8 +1,10 @@
 # simplemodplay
 
-Simple JS modplayer, using [standingwavejs](https://www.npmjs.com/package/standingwavejs)
+Simple JS modplayer, using amiga protracker module player by firehawk/tda.
 
-You can see a demo [here](http://konsumer.github.io/simplemodplay/).
+I made some developer tools, wrote these docs, & re-packed for all (CommonJS, AMD, browser-global) to use.
+
+You can see a demo [here](http://konsumer.github.io/Protracker/).
 
 _NOT COMPLETE_: I am working on it, right now!
 
@@ -13,53 +15,39 @@ This is browser-only, but works with RequireJS, browserify, & as a plain javascr
 ### browser global
 
 ```html
-<script src="http://konsumer.github.io/simplemodplay/simplemodplay.min.js"></script>
+<script src="http://konsumer.github.io/Protracker/Protracker.min.js"></script>
 <script>
-var mod = new SimpleModPlayer();
+var mod = new Protracker();
 </script>
 ```
 
 ### browserify
 
 ```javascript
-var SimpleModPlayer = require('simplemodplay');
-var mod = new SimpleModPlayer();
+var Protracker = require('Protracker');
+var mod = new Protracker();
 ```
 
 ### requirejs
 
 ```javascript
-define(['simplemodplay'],  function(SimpleModPlayer){
-  var mod = new SimpleModPlayer();
+define(['Protracker'],  function(Protracker){
+  var mod = new Protracker();
 });
 ```
 
 ### api
 
-After that, you can run `mod.load('cool.mod')` and then `mod.play()`, `mod.pause()` & `mod.stop()`.
+After that, you can run `mod.load('cool.mod')` and then `mod.atostart(true)` to make it laod.
 
-You can also load your mod file in the constructor, and optionally set the path for [standingwavejs](https://www.npmjs.com/package/standingwavejs) SWF file:
+#### todo
 
-```javascript
-var mod = new SimpleModPlayer('cool.mod', '/flash/standingwavejs.swf');
-```
+write much more stuff here
 
-You can also check `mod.playing`to see is it's playing.
-
-#### events
-
-These events get triggered:
-
-- `load`  - `load()` is called with `path` param.
-- `play`  - `play()` is called
-- `pause` - `pause()` is called
-- `stop`  - `stop()` is called or the file finishes playing
-
-You can listen for them like this: `mod.on('play', function(){ doStuff(); });`
 
 
 ## development
 
 Install developer dependencies with `npm install`.
 
-The source file is index.js. Edit that and then re-generate simplemodplay.js & simplemodplay.min.js with `npm run prod`. You should do that if you make any changes to index.js.
+The source file is index.js. Edit that and then re-generate Protracker.js & Protracker.min.js with `npm run prod`. You should do that if you make any changes to any files.

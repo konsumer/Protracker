@@ -1,11 +1,11 @@
 {
-  "name": "simplemodplay",
+  "name": "Protracker",
   "version": "0.0.1",
-  "description": "Simple JS modplayer, using standingwavejs",
+  "description": "Javascript mod player",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/konsumer/simplemodplay.git"
+    "url": "https://github.com/konsumer/Protracker.git"
   },
   "keywords": [
     "mod",
@@ -15,20 +15,36 @@
   "author": "DavidKonsumer <konsumer@jetboystudio.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/konsumer/simplemodplay/issues"
+    "url": "https://github.com/konsumer/Protracker/issues"
   },
-  "homepage": "https://github.com/konsumer/simplemodplay",
+  "homepage": "https://github.com/konsumer/Protracker",
   "dependencies": {
-    "standingwavejs": ""
+    "node-extend": "^0.2.0",
+    "node.extend": "^1.1.3",
+    "swfobject": "^2.2.1"
   },
   "devDependencies": {
     "browserify": "",
+    "chai": "",
+    "istanbul": "",
+    "mocha": "",
+    "node-static": "^0.7.6",
     "trash": "konsumer/trash",
-    "uglifyjs": ""
+    "uglifyjs": "",
+    "watch": ""
   },
   "scripts": {
-    "clean": "trash --force simplemodplay.js simplemodplay.min.js",
-    "dev": "npm run clean && browserify index.js -o simplemodplay.js --standalone SimpleModPlayer",
-    "prod": "npm run dev && uglifyjs simplemodplay.js -o simplemodplay.min.js"
+    "start": "static",
+    "test": "mocha",
+    "watch": "watch 'npm run dev' --wait=10",
+    "clean": "trash --force Protracker.js Protracker.min.js",
+    "dev": "npm run clean && browserify index.js --debug -o Protracker.js --standalone Protracker",
+    "prod": "npm run dev && uglifyjs Protracker.js -o Protracker.min.js",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks"
+  },
+  "browserify": {
+    "transform": [
+    ]
   }
 }
