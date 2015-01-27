@@ -38,7 +38,7 @@ define(['Protracker'],  function(Protracker){
 
 ### api
 
-After that, you can run `mod.load('cool.mod')` and then `mod.autostart(true)` to make it load.
+After that, you can run `mod.load('cool.mod')` and then `mod.autostart = true` to make it autoplay.
 
 #### todo
 
