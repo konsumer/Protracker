@@ -8,6 +8,10 @@ You can see a demo [here](http://konsumer.github.io/Protracker/).
 
 _NOT COMPLETE_: I am working on it, right now!
 
+[![npm](https://nodei.co/npm/protracker.png)](https://www.npmjs.com/package/protracker)
+[![Build Status](https://travis-ci.org/konsumer/Protracker.svg?branch=master)](https://travis-ci.org/konsumer/mongoose-type-email)
+[![Code Climate](https://codeclimate.com/github/konsumer/Protracker/badges/gpa.svg)](https://codeclimate.com/github/konsumer/Protracker)
+
 ## usage
 
 This is browser-only, but works with RequireJS, browserify, & as a plain javascript browser global.
@@ -24,7 +28,7 @@ var mod = new Protracker();
 ### browserify
 
 ```javascript
-var Protracker = require('Protracker');
+var Protracker = require('protracker');
 var mod = new Protracker();
 ```
 
