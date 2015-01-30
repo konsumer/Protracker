@@ -1,4 +1,4 @@
-# simplemodplay
+# Protracker
 
 Simple JS modplayer, using amiga protracker module player by firehawk/tda.
 

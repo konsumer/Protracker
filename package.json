@@ -1,5 +1,5 @@
 {
-  "name": "Protracker",
+  "name": "protracker",
   "version": "0.0.1",
   "description": "Javascript mod player",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "music",
     "browser"
   ],
-  "author": "DavidKonsumer <konsumer@jetboystudio.com>",
+  "author": "firehawk/tda <firehawk@haxor.fi>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/konsumer/Protracker/issues"
