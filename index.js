@@ -99,14 +99,14 @@ function Protracker()
     214,202,190,180,170,160,151,143,135,127,120,113);
 
   // finetune multipliers
-  this.finetunetable=new Array();
+  this.finetunetable = [];
   for(t=0;t<16;t++) this.finetunetable[t]=Math.pow(2, (t-8)/12/8);
   
   // calc tables for vibrato waveforms
-  this.vibratotable=new Array();
+  this.vibratotable = [];
   for(t=0;t<4;t++) {
-    this.vibratotable[t]=new Array();
-    for(var i=0;i<64;i++) {
+    this.vibratotable[t] = [];
+    for(i=0;i<64;i++) {
       switch(t) {
         case 0:
           this.vibratotable[t][i]=127*Math.sin(Math.PI*2*(i/64));
@@ -185,14 +185,16 @@ Protracker.prototype.createContext = function()
   this.filterNode.connect(this.lowpassNode);
   this.lowpassNode.connect(this.compressorNode);
   this.compressorNode.connect(this.context.destination);
-}
+};
 
 
 
 // play loaded and parsed module with webaudio context
 Protracker.prototype.play = function()
 {
-  if (this.context==null) this.createContext();
+  if (this.context===null) {
+    this.createContext();
+  }
   
   if (!this.ready) return false;
   if (this.paused) {
@@ -207,7 +209,7 @@ Protracker.prototype.play = function()
   this.onPlay();
   this.delayfirst=this.bufferstodelay;
   return true;
-}
+};
 
 
 
@@ -219,7 +221,7 @@ Protracker.prototype.pause = function()
   } else {
     this.paused=false;
   }
-}
+};
 
 
 
@@ -229,7 +231,7 @@ Protracker.prototype.stop = function()
   this.playing=false;
   this.onStop();
   this.delayload=1;
-}
+};
 
 
 
@@ -237,7 +239,7 @@ Protracker.prototype.stop = function()
 Protracker.prototype.stopaudio = function(st)
 {
   this.playing=st;
-}
+};
 
 
 
@@ -250,7 +252,7 @@ Protracker.prototype.jump = function(step)
   this.flags=1+2;  
   if (this.position<0) this.position=0;
   if (this.position >= this.songlen) this.stop();
-}
+};
 
 
 
@@ -258,7 +260,7 @@ Protracker.prototype.jump = function(step)
 Protracker.prototype.setrepeat = function(rep)
 {
   this.repeat=rep;
-}
+};
 
 
 
@@ -266,7 +268,7 @@ Protracker.prototype.setrepeat = function(rep)
 Protracker.prototype.setseparation = function(sep)
 {
   this.separation=sep;
-}
+};
 
 
 
@@ -274,7 +276,7 @@ Protracker.prototype.setseparation = function(sep)
 Protracker.prototype.setamigatype = function(clock)
 {
   this.palclock=clock;
-}
+};
 
 
 
@@ -282,7 +284,7 @@ Protracker.prototype.setamigatype = function(clock)
 Protracker.prototype.setautostart = function(st)
 {
   this.autostart=st;
-}
+};
 
 
 
@@ -298,15 +300,15 @@ Protracker.prototype.setamigamodel = function(amiga)
     this.amiga500=true;
     if (this.filterNode) this.filterNode.frequency.value=6000;
   }
-}
+};
 
 
 
 // are there E8x sync events queued?
 Protracker.prototype.hassyncevents = function()
 {
-  return (this.syncqueue.length != 0);
-}
+  return (this.syncqueue.length !== 0);
+};
 
 
 
@@ -314,7 +316,7 @@ Protracker.prototype.hassyncevents = function()
 Protracker.prototype.popsyncevent = function()
 {
   return this.syncqueue.pop();
-}
+};
 
 
 
@@ -330,10 +332,10 @@ Protracker.prototype.clearsong = function()
 
   this.channels=4;
 
-  this.sample=new Array();
+  this.sample=[];
   this.samples=31;
-  for(var i=0;i<31;i++) {
-    this.sample[i]=new Object();
+  for(i=0;i<31;i++) {
+    this.sample[i]={};
     this.sample[i].name="";
     this.sample[i].length=0;
     this.sample[i].finetune=0;
@@ -344,8 +346,8 @@ Protracker.prototype.clearsong = function()
   }
 
   this.patterns=0;
-  this.pattern=new Array();
-  this.note=new Array();
+  this.pattern=[];
+  this.note=[];
   
   this.looprow=0;
   this.loopstart=0;
@@ -355,7 +357,7 @@ Protracker.prototype.clearsong = function()
   this.patternwait=0;
   
   this.syncqueue=[];
-}
+};
 
 
 // initialize all player variables
@@ -377,9 +379,9 @@ Protracker.prototype.initialize = function()
   this.patternwait=0;
   this.endofsong=false;
   
-  this.channel=new Array();
-  for(var i=0;i<this.channels;i++) {
-    this.channel[i]=new Object();
+  this.channel=[];
+  for(i=0;i<this.channels;i++) {
+    this.channel[i]={};
     this.channel[i].sample=0;
     this.channel[i].period=214;
     this.channel[i].voiceperiod=214;
@@ -397,13 +399,13 @@ Protracker.prototype.initialize = function()
     this.channel[i].arpeggio=0;
 
     this.channel[i].semitone=12;
-    this.channel[i].vibratospeed=0
-    this.channel[i].vibratodepth=0
+    this.channel[i].vibratospeed=0;
+    this.channel[i].vibratodepth=0;
     this.channel[i].vibratopos=0;
     this.channel[i].vibratowave=0;
   }
-  this.vu=new Array();
-}
+  this.vu=[];
+};
 
 
 
@@ -425,9 +427,9 @@ Protracker.prototype.load = function(url)
         asset.buffer=new Uint8Array(request.response);
         asset.parse();
         if (asset.autostart) asset.play();
-    }
+    };
     request.send();  
-}
+};
 
 
 
@@ -436,9 +438,14 @@ Protracker.prototype.parse = function()
 {
   var i,j,c;
   
-  if (!this.buffer) return false;
+  if (!this.buffer){
+    return false;
+  }
   
-  for(var i=0;i<4;i++) this.signature+=String.fromCharCode(this.buffer[1080+i]);
+  for(i=0;i<4;i++){
+    this.signature+=String.fromCharCode(this.buffer[1080+i]);
+  }
+
   switch (this.signature) {
     case "M.K.":
     case "M!K!":
@@ -462,14 +469,17 @@ Protracker.prototype.parse = function()
     default:
       return false;
   }
-  this.vu=new Array();
-  for(var i=0;i<this.channels;i++) this.vu[i]=0.0;
+  this.vu=[];
+  for(i=0;i<this.channels;i++){
+    this.vu[i]=0.0;
+  }
   
   i=0;
-  while(this.buffer[i] && i<20)
+  while(this.buffer[i] && i<20){
     this.title=this.title+String.fromCharCode(this.buffer[i++]);
+  }
 
-  for(var i=0;i<this.samples;i++) {
+  for(i=0;i<this.samples;i++) {
     var st=20+i*30;
     j=0;
     while(this.buffer[st+j] && j<22) { 
@@ -494,16 +504,16 @@ Protracker.prototype.parse = function()
 
   this.songlen=this.buffer[950];
   if (this.buffer[951] != 127) this.repeatpos=this.buffer[951];
-  for(var i=0;i<128;i++) {
+  for(i=0;i<128;i++) {
     this.patterntable[i]=this.buffer[952+i];
     if (this.patterntable[i] > this.patterns) this.patterns=this.patterntable[i];
   }
   this.patterns+=1;
   var patlen=4*64*this.channels;
 
-  this.pattern=new Array();
-  this.note=new Array();
-  for(var i=0;i<this.patterns;i++) {
+  this.pattern=[];
+  this.note=[];
+  for(i=0;i<this.patterns;i++) {
     this.pattern[i]=new Uint8Array(patlen);
     this.note[i]=new Uint8Array(this.channels*64);
     for(j=0;j<patlen;j++) this.pattern[i][j]=this.buffer[1084+i*patlen+j];
@@ -516,7 +526,7 @@ Protracker.prototype.parse = function()
   }
   
   var sst=1084+this.patterns*patlen;
-  for(var i=0;i<this.samples;i++) {
+  for(i=0;i<this.samples;i++) {
     this.sample[i].data=new Float32Array(this.sample[i].length);
     for(j=0;j<this.sample[i].length;j++) {
       var q=this.buffer[sst+j];
@@ -542,7 +552,7 @@ Protracker.prototype.parse = function()
 
   this.onReady();
   return true;
-}
+};
 
 
 
@@ -596,7 +606,7 @@ Protracker.prototype.advance=function(mod) {
     }
     return;
   }
-}
+};
 
 
 
@@ -610,7 +620,7 @@ Protracker.prototype.mix = function(ape) {
   } else {
     mod=this.module;
   }
-  outp=new Array();
+  outp=[];
 
   var bufs=new Array(ape.outputBuffer.getChannelData(0), ape.outputBuffer.getChannelData(1));
   var buflen=ape.outputBuffer.length;
@@ -619,7 +629,7 @@ Protracker.prototype.mix = function(ape) {
     outp[0]=0.0;
     outp[1]=0.0;
 
-    if (!mod.paused && mod.playing && mod.delayfirst==0)
+    if (!mod.paused && mod.playing && mod.delayfirst===0)
     {
       mod.advance(mod);
 
@@ -700,7 +710,9 @@ Protracker.prototype.mix = function(ape) {
           outp[och]+=f;
           mod.channel[ch].samplepos+=mod.channel[ch].samplespeed;
         }
-        if (s==0) mod.vu[ch]=Math.abs(f);
+        if (s===0){
+          mod.vu[ch]=Math.abs(f);
+        }
 
         // loop or end samples
         if (mod.channel[ch].noteon) {
@@ -738,7 +750,7 @@ Protracker.prototype.mix = function(ape) {
   }
   if (mod.delayfirst>0) mod.delayfirst--; //=false;
   mod.delayload=0;
-}
+};
 
 
 
@@ -747,16 +759,16 @@ Protracker.prototype.mix = function(ape) {
 //
 Protracker.prototype.effect_t0_0=function(mod, ch) { // 0 arpeggio
   mod.channel[ch].arpeggio=mod.channel[ch].data;
-}
+};
 Protracker.prototype.effect_t0_1=function(mod, ch) { // 1 slide up
   if (mod.channel[ch].data) mod.channel[ch].slidespeed=mod.channel[ch].data;
-}
+};
 Protracker.prototype.effect_t0_2=function(mod, ch) { // 2 slide down
   if (mod.channel[ch].data) mod.channel[ch].slidespeed=mod.channel[ch].data;
-}
+};
 Protracker.prototype.effect_t0_3=function(mod, ch) { // 3 slide to note
   if (mod.channel[ch].data) mod.channel[ch].slidetospeed=mod.channel[ch].data;
-}
+};
 Protracker.prototype.effect_t0_4=function(mod, ch) { // 4 vibrato
   if (mod.channel[ch].data&0x0f && mod.channel[ch].data&0xf0) {
     mod.channel[ch].vibratodepth=(mod.channel[ch].data&0x0f);
@@ -765,45 +777,45 @@ Protracker.prototype.effect_t0_4=function(mod, ch) { // 4 vibrato
   mod.channel[ch].voiceperiod+=
     (mod.channel[ch].vibratodepth/32)*mod.channel[ch].semitone*(mod.vibratotable[mod.channel[ch].vibratowave&3][mod.channel[ch].vibratopos]/127);        
   mod.channel[ch].flags|=1;
-}
+};
 Protracker.prototype.effect_t0_5=function(mod, ch) { // 5
-}
+};
 Protracker.prototype.effect_t0_6=function(mod, ch) { // 6
-}
+};
 Protracker.prototype.effect_t0_7=function(mod, ch) { // 7
-}
+};
 Protracker.prototype.effect_t0_8=function(mod, ch) { // 8 unused, used for syncing
   mod.syncqueue.unshift(mod.channel[ch].data&0x0f);
-}
+};
 Protracker.prototype.effect_t0_9=function(mod, ch) { // 9 set sample offset
   mod.channel[ch].samplepos=mod.channel[ch].data*256;
-}
+};
 Protracker.prototype.effect_t0_a=function(mod, ch) { // a
-}
+};
 Protracker.prototype.effect_t0_b=function(mod, ch) { // b pattern jump
   mod.breakrow=0;
   mod.patternjump=mod.channel[ch].data;
   mod.flags|=16;
-}
+};
 Protracker.prototype.effect_t0_c=function(mod, ch) { // c set volume
   mod.channel[ch].volume=mod.channel[ch].data;
-}
+};
 Protracker.prototype.effect_t0_d=function(mod, ch) { // d pattern break
   mod.breakrow=((mod.channel[ch].data&0xf0)>>4)*10 + (mod.channel[ch].data&0x0f);
   if (!(mod.flags&16)) mod.patternjump=mod.position+1;
   mod.flags|=16;  
-}
+};
 Protracker.prototype.effect_t0_e=function(mod, ch) { // e
   var i=(mod.channel[ch].data&0xf0)>>4;
   mod.effects_t0_e[i](mod, ch);
-}
+};
 Protracker.prototype.effect_t0_f=function(mod, ch) { // f set speed
   if (mod.channel[ch].data > 32) {
     mod.bpm=mod.channel[ch].data;
   } else {
     if (mod.channel[ch].data) mod.speed=mod.channel[ch].data;
   }
-}
+};
 
 
 
@@ -819,23 +831,23 @@ Protracker.prototype.effect_t0_e0=function(mod, ch) { // e0 filter on/off
     mod.lowpassNode.frequency.value=28867;
     mod.filter=false;
   }
-}
+};
 Protracker.prototype.effect_t0_e1=function(mod, ch) { // e1 fine slide up
   mod.channel[ch].period-=mod.channel[ch].data&0x0f;
   if (mod.channel[ch].period < 113) mod.channel[ch].period=113;
-}
+};
 Protracker.prototype.effect_t0_e2=function(mod, ch) { // e2 fine slide down
   mod.channel[ch].period+=mod.channel[ch].data&0x0f;
   if (mod.channel[ch].period > 856) mod.channel[ch].period=856;
   mod.channel[ch].flags|=1;
-}
+};
 Protracker.prototype.effect_t0_e3=function(mod, ch) { // e3 set glissando
-}
+};
 Protracker.prototype.effect_t0_e4=function(mod, ch) { // e4 set vibrato waveform
   mod.channel[ch].vibratowave=mod.channel[ch].data&0x07;
-}
+};
 Protracker.prototype.effect_t0_e5=function(mod, ch) { // e5 set finetune
-}
+};
 Protracker.prototype.effect_t0_e6=function(mod, ch) { // e6 loop pattern
   if (mod.channel[ch].data&0x0f) {
     if (mod.loopcount) {
@@ -847,24 +859,24 @@ Protracker.prototype.effect_t0_e6=function(mod, ch) { // e6 loop pattern
   } else {
     mod.looprow=mod.row;
   }
-}
+};
 Protracker.prototype.effect_t0_e7=function(mod, ch) { // e7
-}
+};
 Protracker.prototype.effect_t0_e8=function(mod, ch) { // e8, use for syncing
   mod.syncqueue.unshift(mod.channel[ch].data&0x0f);
-}
+};
 Protracker.prototype.effect_t0_e9=function(mod, ch) { // e9
-}
+};
 Protracker.prototype.effect_t0_ea=function(mod, ch) { // ea fine volslide up
   mod.channel[ch].volume+=mod.channel[ch].data&0x0f;
   if (mod.channel[ch].volume > 64) mod.channel[ch].volume=64;
-}
+};
 Protracker.prototype.effect_t0_eb=function(mod, ch) { // eb fine volslide down
   mod.channel[ch].volume-=mod.channel[ch].data&0x0f;
   if (mod.channel[ch].volume < 0) mod.channel[ch].volume=0;
-}
+};
 Protracker.prototype.effect_t0_ec=function(mod, ch) { // ec
-}
+};
 Protracker.prototype.effect_t0_ed=function(mod, ch) { // ed delay sample
   if (mod.tick==(mod.channel[ch].data&0x0f)) {
     // start note
@@ -885,13 +897,13 @@ Protracker.prototype.effect_t0_ed=function(mod, ch) { // ed delay sample
       mod.channel[ch].volume=mod.sample[n-1].volume;
     }
   }
-}
+};
 Protracker.prototype.effect_t0_ee=function(mod, ch) { // ee delay pattern
   mod.patterndelay=mod.channel[ch].data&0x0f;
   mod.patternwait=0;
-}
+};
 Protracker.prototype.effect_t0_ef=function(mod, ch) { // ef
-}
+};
 
 
 
@@ -907,17 +919,17 @@ Protracker.prototype.effect_t1_0=function(mod, ch) { // 0 arpeggio
       mod.channel[ch].voiceperiod = mod.baseperiodtable[apn];
     mod.channel[ch].flags|=1;
   }
-}
+};
 Protracker.prototype.effect_t1_1=function(mod, ch) { // 1 slide up
   mod.channel[ch].period-=mod.channel[ch].slidespeed;
   if (mod.channel[ch].period<113) mod.channel[ch].period=113;
   mod.channel[ch].flags|=3; // recalc speed
-}
+};
 Protracker.prototype.effect_t1_2=function(mod, ch) { // 2 slide down
   mod.channel[ch].period+=mod.channel[ch].slidespeed;
   if (mod.channel[ch].period>856) mod.channel[ch].period=856;
   mod.channel[ch].flags|=3; // recalc speed                
-}
+};
 Protracker.prototype.effect_t1_3=function(mod, ch) { // 3 slide to note
   if (mod.channel[ch].period < mod.channel[ch].slideto) {
     mod.channel[ch].period+=mod.channel[ch].slidetospeed;
@@ -930,27 +942,27 @@ Protracker.prototype.effect_t1_3=function(mod, ch) { // 3 slide to note
       mod.channel[ch].period=mod.channel[ch].slideto;
   }
   mod.channel[ch].flags|=3; // recalc speed
-}
+};
 Protracker.prototype.effect_t1_4=function(mod, ch) { // 4 vibrato
   mod.channel[ch].voiceperiod+=
     (mod.channel[ch].vibratodepth/32)*mod.channel[ch].semitone*(mod.vibratotable[mod.channel[ch].vibratowave&3][mod.channel[ch].vibratopos]/127);
   mod.channel[ch].flags|=1;
-}
+};
 Protracker.prototype.effect_t1_5=function(mod, ch) { // 5 volslide + slide to note
   mod.effect_t1_3(mod, ch); // slide to note
   mod.effect_t1_a(mod, ch); // volslide
-}
+};
 Protracker.prototype.effect_t1_6=function(mod, ch) { // 6 volslide + vibrato
   mod.effect_t1_4(mod, ch); // vibrato
   mod.effect_t1_a(mod, ch); // volslide
-}
+};
 Protracker.prototype.effect_t1_7=function(mod, ch) { // 7
-}
+};
 Protracker.prototype.effect_t1_8=function(mod, ch) { // 8 unused
 
-}
+};
 Protracker.prototype.effect_t1_9=function(mod, ch) { // 9 set sample offset
-}
+};
 Protracker.prototype.effect_t1_a=function(mod, ch) { // a volume slide
   if (!(mod.channel[ch].data&0x0f)) {
     // y is zero, slide up
@@ -962,19 +974,19 @@ Protracker.prototype.effect_t1_a=function(mod, ch) { // a volume slide
     mod.channel[ch].volume-=(mod.channel[ch].data&0x0f);
     if (mod.channel[ch].volume<0) mod.channel[ch].volume=0;                  
   }
-}
+};
 Protracker.prototype.effect_t1_b=function(mod, ch) { // b pattern jump
-}
+};
 Protracker.prototype.effect_t1_c=function(mod, ch) { // c set volume
-}
+};
 Protracker.prototype.effect_t1_d=function(mod, ch) { // d pattern break
-}
+};
 Protracker.prototype.effect_t1_e=function(mod, ch) { // e
   var i=(mod.channel[ch].data&0xf0)>>4;
   mod.effects_t1_e[i](mod, ch);
-}
+};
 Protracker.prototype.effect_t1_f=function(mod, ch) { // f
-}
+};
 
 
 
@@ -982,42 +994,42 @@ Protracker.prototype.effect_t1_f=function(mod, ch) { // f
 // tick 1+ effect e functions
 //
 Protracker.prototype.effect_t1_e0=function(mod, ch) { // e0
-}
+};
 Protracker.prototype.effect_t1_e1=function(mod, ch) { // e1
-}
+};
 Protracker.prototype.effect_t1_e2=function(mod, ch) { // e2
-}
+};
 Protracker.prototype.effect_t1_e3=function(mod, ch) { // e3
-}
+};
 Protracker.prototype.effect_t1_e4=function(mod, ch) { // e4
-}
+};
 Protracker.prototype.effect_t1_e5=function(mod, ch) { // e5
-}
+};
 Protracker.prototype.effect_t1_e6=function(mod, ch) { // e6
-}
+};
 Protracker.prototype.effect_t1_e7=function(mod, ch) { // e7
-}
+};
 Protracker.prototype.effect_t1_e8=function(mod, ch) { // e8
-}
+};
 Protracker.prototype.effect_t1_e9=function(mod, ch) { // e9 retrig sample
-  if (mod.tick%(mod.channel[ch].data&0x0f)==0)
+  if (mod.tick%(mod.channel[ch].data&0x0f)===0)
     mod.channel[ch].samplepos=0;
-}
+};
 Protracker.prototype.effect_t1_ea=function(mod, ch) { // ea
-}
+};
 Protracker.prototype.effect_t1_eb=function(mod, ch) { // eb
-}
+};
 Protracker.prototype.effect_t1_ec=function(mod, ch) { // ec cut sample
   if (mod.tick==(mod.channel[ch].data&0x0f))
     mod.channel[ch].volume=0;
-}
+};
 Protracker.prototype.effect_t1_ed=function(mod, ch) { // ed delay sample
   mod.effect_t0_ed(mod, ch);
-}
+};
 Protracker.prototype.effect_t1_ee=function(mod, ch) { // ee
-}
+};
 Protracker.prototype.effect_t1_ef=function(mod, ch) { // ef
-}
+};
 
 // feel free to disable the formats
 require('./formats/it')(Protracker);
