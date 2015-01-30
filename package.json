@@ -1,6 +1,6 @@
 {
   "name": "protracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Javascript mod player",
   "main": "index.js",
   "repository": {
@@ -31,9 +31,9 @@
     "start": "static",
     "test": "mocha",
     "watch": "watch 'npm run dev' --wait=10",
-    "clean": "trash --force Protracker.js Protracker.min.js",
-    "dev": "npm run clean && browserify index.js --debug -o Protracker.js --standalone Protracker",
-    "prod": "npm run dev && uglifyjs Protracker.js -o Protracker.min.js"
+    "clean": "trash --force dist/Protracker.js dist/Protracker.min.js",
+    "dev": "npm run clean && browserify index.js --debug -o dist/Protracker.js --standalone Protracker",
+    "prod": "npm run dev && uglifyjs dist/Protracker.js -o dist/Protracker.min.js"
   },
   "browserify": {
     "transform": [

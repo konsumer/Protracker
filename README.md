@@ -19,7 +19,7 @@ This is browser-only, but works with RequireJS, browserify, & as a plain javascr
 ### browser global
 
 ```html
-<script src="http://konsumer.github.io/Protracker/Protracker.min.js"></script>
+<script src="http://konsumer.github.io/Protracker/dist/Protracker.min.js"></script>
 <script>
 var mod = new Protracker();
 </script>
